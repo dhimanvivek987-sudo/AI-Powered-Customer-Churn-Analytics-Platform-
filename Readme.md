@@ -1,220 +1,104 @@
 # AI-Powered Customer Churn & Risk Intelligence Platform
-### AWS Athena • Amazon Bedrock • Multi-LLM Evaluation • Machine Learning
+### AWS Athena • Amazon Bedrock • Multi-LLM Evaluation • Predictive ML
 
 ---
 
-## Executive Summary
+## Executive Overview
 
-This project demonstrates a production-style AI analytics platform built on AWS that enables:
+This project demonstrates a cloud-native AI analytics platform designed to:
 
-- Natural language business queries
-- Automatic SQL generation using Large Language Models
-- Multi-table cloud data warehouse analytics
-- Fraud exposure analysis
-- Revenue risk detection
-- Predictive churn modeling
-- Explainable AI insights
+- Convert natural language business questions into SQL
+- Execute serverless analytics on AWS Athena
+- Analyze churn risk, fraud exposure, and revenue impact
+- Predict churn probability using machine learning
+- Deliver explainable AI insights
 
-The system simulates an enterprise-grade financial analytics environment, integrating cloud-native architecture, LLM orchestration, and predictive modeling.
+The system simulates an enterprise-grade financial analytics environment.
 
 ---
 
-# Business Context
+## Business Problem
 
-Customer churn is one of the largest revenue risks for financial institutions.
+Financial institutions face revenue loss due to:
 
-This platform answers:
+- Customer churn
+- Fraud exposure
+- High-value customer attrition
 
-- Which geography has highest churn risk?
-- What is total revenue exposure from churned customers?
-- Which high-value customers are at risk?
-- What fraud exposure exists across regions?
-- What is the predicted churn probability for key segments?
+This platform enables:
 
-The goal is to bridge business language and data intelligence.
+✔ Churn rate segmentation  
+✔ Revenue exposure analysis  
+✔ Fraud risk detection  
+✔ Predictive churn probability scoring  
+✔ Explainable churn drivers  
 
 ---
 
-# Cloud Architecture
+## Quantitative Scope
 
-User → LLM → SQL → Athena → DataFrame → ML Model → Insight
-
-### Cloud Stack Used
-
-| Service | Purpose |
+| Dataset | Records |
 |----------|----------|
-| Amazon S3 | Data Lake Storage |
-| AWS Athena | Serverless SQL Engine |
-| Amazon Bedrock | LLM-based SQL generation |
-| IAM | Access control |
-| boto3 | Programmatic AWS access |
-| Google Colab | ML training environment |
+| Customers | ~10,000 |
+| Transactions | 500,000 |
+| Fraud Signals | 500,000 |
+| Features | 13 customer attributes |
 
 ---
 
-# Multi-Model LLM Evaluation Strategy
-
-During development, multiple enterprise-grade models were evaluated:
-
-| Provider | Model | Outcome |
-|----------|--------|----------|
-| OpenAI | GPT-4o-mini | API rate limit (quota exceeded) |
-| Anthropic | Claude Haiku (Claude 3 Haiku) | Marketplace payment restriction |
-| Amazon Titan | titan-text-lite-v1 | Model deprecated |
-| Amazon Titan Express | Invalid model version |
-| Anthropic Claude Sonnet | Payment restriction |
-| **Meta LLaMA 3 (Bedrock)** | meta.llama3-8b-instruct-v1:0 | Final production model |
-
-This reflects real-world LLM governance, billing constraints, and cloud-native evaluation processes.
-
-Final production model: **Meta LLaMA 3 via Amazon Bedrock**
-
----
-
-# Dataset Overview
-
-## 1. Customer Churn Dataset
-Source: European Bank Customer Dataset (Maven Analytics)
-
-Records: ~10,000 customers  
-Columns: 13 features including:
-
-- CustomerId
-- CreditScore
-- Geography
-- Gender
-- Age
-- Tenure
-- Balance
-- NumOfProducts
-- HasCrCard
-- IsActiveMember
-- EstimatedSalary
-- Exited (Churn Flag)
-
-## 2. Transaction Dataset (PaySim Simulation)
-
-Records: 500,000 transactions
-
-Features:
-
-- step
-- type
-- amount
-- nameOrig
-- nameDest
-- oldbalanceOrg
-- newbalanceOrig
-- oldbalanceDest
-- newbalanceDest
-- isFraud
-- isFlaggedFraud
-
----
-
-# Data Engineering Process
-
-1. Uploaded raw CSV datasets to Amazon S3
-2. Created external Athena tables:
-   - customers
-   - transactions
-3. Created synthetic aligned table:
-   - customer_transaction_summary_fixed
-4. Ensured referential integrity:
-   customers.customer_id = customer_transaction_summary_fixed.customer_id
-5. Validated JOIN row counts
-6. Verified multi-table analytics results
-
----
-
-# Natural Language to SQL Engine
-
-Implemented using Amazon Bedrock (Meta LLaMA 3).
-
-Enhancements included:
-
-- Prompt engineering with schema awareness
-- Multi-table JOIN enforcement
-- SQL sanitization
-- SQL safety validator
-- Syntax auto-correction
-- Separation of prediction vs analytics logic
-- Error handling for truncated model responses
-
----
-
-# Example Business Queries Executed
-
-✔ Show churn rate by geography  
-✔ Show fraud count by geography  
-✔ Show revenue exposure of churned customers  
-✔ Identify high-value churn segments  
-✔ Detect customers with high transaction activity  
-✔ Predict churn probability for high-value customers  
-
----
-
-# Predictive Analytics Layer
+## Predictive Model Performance
 
 Model: Logistic Regression  
 Train/Test Split: 80/20  
 
-Performance:
+- Accuracy: **0.815**
+- ROC-AUC: **0.734**
 
-- Accuracy: 0.815
-- ROC-AUC: 0.734
-
-The model predicts churn probability and integrates directly into the chatbot pipeline.
-
----
-
-# Explainable AI
-
-Model coefficients analyzed to identify top churn drivers:
-
+Top churn drivers identified:
 - Inactive membership
 - Credit score
-- Balance levels
-- Geographic segmentation
+- Balance
+- Geography
 - Product count
 
-This enables strategic retention campaign planning.
+---
+
+## AWS Services Used
+
+- Amazon S3 (Data Lake)
+- AWS Athena (Serverless SQL)
+- Amazon Bedrock (LLM orchestration)
+- IAM (Access control)
+- boto3 SDK (Programmatic execution)
 
 ---
 
-# Business Impact Simulation
+## LLM Models Evaluated
 
-If 32% churn rate exists in Germany and high-balance customers average €119,000:
+| Provider | Model | Outcome |
+|----------|--------|----------|
+| OpenAI | GPT-4o-mini | Rate limit exceeded |
+| Anthropic | Claude Haiku | Marketplace payment restriction |
+| Amazon Titan | titan-text-lite-v1 | Deprecated |
+| Amazon Titan Express | Invalid model version |
+| Meta (Bedrock) | LLaMA 3 | Production model |
 
-Estimated revenue exposure from churned customers can exceed millions in portfolio value.
-
-This platform allows proactive identification of those segments.
+Demonstrates real-world LLM evaluation under enterprise constraints.
 
 ---
 
-# Power BI & BI Strategy Alignment
+## Key Capabilities
 
----
-
-# Key Capabilities Demonstrated
-
-- Cloud-native analytics architecture
-- Serverless data warehousing
-- Multi-LLM experimentation
-- Production-grade prompt engineering
-- SQL sanitization and governance
-- Multi-table modeling
-- Predictive ML integration
+- Multi-table SQL generation
+- Fraud analysis by geography
+- Revenue exposure quantification
+- High-value customer risk detection
+- Predictive churn modeling
 - Explainable AI
-- Cloud IAM integration
-- Real-world error troubleshooting
+- SQL governance & validation
 
 ---
 
-# Future Roadmap
+## Architecture Diagram
 
-- XGBoost model upgrade
-- Streamlit executive dashboard
-- EC2 deployment
-- REST API endpoint
-- Automated retraining pipeline
+See ARCHITECTURE.md for full cloud architecture.
