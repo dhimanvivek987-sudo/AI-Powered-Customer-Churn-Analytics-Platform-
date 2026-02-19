@@ -1,4 +1,4 @@
-# AI-Powered Customer Churn & Risk Intelligence Platform
+# AI-Powered Text-to-SQL Analytics Engine (AWS Athena + Bedrock + ML)
 ### AWS Athena • Amazon Bedrock • Multi-LLM Evaluation • Predictive ML
 
 ---
